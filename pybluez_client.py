@@ -18,5 +18,10 @@ print("connecting to \"%s\" on %s" % (name, host))
 
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 sock.connect((host, port))
-sock.send("hello!!")
+while True:
+    msg = sock.recv(1024).decode()
+    print(msg)
+    if msg == 'quit':
+        break
+    sock.send(msg.encode())
 sock.close()
